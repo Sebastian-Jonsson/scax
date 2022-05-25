@@ -24,6 +24,7 @@ public class MethodChecker {
 
     private boolean classStarted;
     private boolean classEnded;
+    private String parentName = "";
     private int parentLength = 0;
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
@@ -47,6 +48,10 @@ public class MethodChecker {
             }
 
             classStarted = true;
+
+            if (parentName.equals("")) {
+                parentName = line;
+            }
             parentLength++;
             methodDeclare(line, lineNumber);
             report.methodDeclarationViolations = methodDeclarationViolations;
@@ -141,6 +146,7 @@ public class MethodChecker {
         for (MethodDeclarationViolation declarationViolation : methodDeclarationViolations) {
             declarationViolation.parentTotalMethods = methodCount;
             declarationViolation.parentLength = parentLength;
+            declarationViolation.parentName = parentName;
         }
     }
 
@@ -166,6 +172,7 @@ public class MethodChecker {
 
     /** Existing in Classes or Interfaces */
     public class MethodDeclarationViolation {
+        public String parentName = "";
         public int parentLength = 0;
         public int parentTotalMethods = 0;
         public String methodName = "";

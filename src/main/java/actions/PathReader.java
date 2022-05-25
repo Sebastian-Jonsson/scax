@@ -62,16 +62,18 @@ public class PathReader {
      */
     private void tempFileReport(String projectFolder) {
         StringBuilder fileReport = new StringBuilder();
+        fileReport.append("###Report of " + projectFolder);
+
         for (FileReport report : reportList) {
             fileReport.append(
-                "\n\nMetaData:\nFile: " + report.filePath
+                "\n\n####MetaData of file: " + report.filePath
                 + "\nTotal Lines: " + report.totalLines + " | Max File Length Violation: "
                 + (report.totalLines > rule.MAX_FILE_LENGTH)
                 + "\nLines of Code: " + report.linesOfCode
-                + " Blank Lines: " + report.blankLines
-                + " Lines of Comments: " + report.linesOfComments
-                + " Amount of Comments: " + report.amountOfComments
-                + "\n\nRules: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
+                + "\nBlank Lines: " + report.blankLines
+                + "\nLines of Comments: " + report.linesOfComments
+                + "\nAmount of Comments: " + report.amountOfComments
+                + "\n\nOracle Code Convention Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
 
             for (LineLengthViolation lineLength : report.lineLengthViolations) {
                 fileReport.append(
@@ -79,15 +81,21 @@ public class PathReader {
                     + " - Actual Length: " + lineLength.actualLength);
             }
 
-            fileReport.append("\n\n\nMethod Declaration Violations below: " + report.methodDeclarationViolations.size());
-            for (MethodDeclarationViolation declarationViolation : report.methodDeclarationViolations) {
-                fileReport.append(
-                    "\n\nParent Class or Interface Length: " + declarationViolation.parentLength
-                    + "\nLine: " + declarationViolation.lineNumber + " | Method: "
-                    + declarationViolation.methodName
-                    + " | Method Length: " + declarationViolation.methodLength
-                    + "\nDescription: " + declarationViolation.declarationViolation);
+            if (report.methodDeclarationViolations.size() != 0) {
+                fileReport.append("\n\n\n####Method Declaration Violations below: " + report.methodDeclarationViolations.size());
+
+                for (MethodDeclarationViolation declarationViolation : report.methodDeclarationViolations) {
+                    fileReport.append(
+                        "\n\nParent Name: " + declarationViolation.parentName
+                        + "\nParent Class or Interface Length: " + declarationViolation.parentLength
+                        + "\nLine: " + declarationViolation.lineNumber + " | Method: "
+                        + declarationViolation.methodName
+                        + " | Method Length: " + declarationViolation.methodLength
+                        + "\nDescription: " + declarationViolation.declarationViolation);
+                }
             }
+
+            fileReport.append("\n\n---\n\n");
         }
         // TODO: Add print to Markdown format function and refactor.
         printReport(fileReport.toString(), projectFolder);
@@ -95,10 +103,10 @@ public class PathReader {
     }
 
     private void printReport(String fileReport, String projectFolder) {
-        File myObj = new File(projectFolder + "/SCAX_Report.txt");
+        File myObj = new File(projectFolder + "/SCAX_Report.md");
         try {
             if (myObj.createNewFile()) {
-                FileWriter writeToFile = new FileWriter(projectFolder + "/SCAX_Report.txt");
+                FileWriter writeToFile = new FileWriter(projectFolder + "/SCAX_Report.md");
                 writeToFile.write(fileReport);
                 writeToFile.close();
             }
