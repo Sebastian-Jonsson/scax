@@ -63,17 +63,18 @@ public class PathReader {
     private void tempFileReport(String projectFolder) {
         StringBuilder fileReport = new StringBuilder();
         fileReport.append("###Report of " + projectFolder);
+        fileReport.append(summarizeViolations());
 
         for (FileReport report : reportList) {
             fileReport.append(
-                "\n\n####MetaData of file: " + report.filePath
-                + "\nTotal Lines: " + report.totalLines + " | Max File Length Violation: "
+                "\n\n####File: " + report.filePath
+                + "\nTotal amount of Lines: " + report.totalLines + " - File Length Violation is "
                 + (report.totalLines > rule.MAX_FILE_LENGTH)
                 + "\nLines of Code: " + report.linesOfCode
                 + "\nBlank Lines: " + report.blankLines
                 + "\nLines of Comments: " + report.linesOfComments
                 + "\nAmount of Comments: " + report.amountOfComments
-                + "\n\nOracle Code Convention Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
+                + "\n\n####Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
 
             for (LineLengthViolation lineLength : report.lineLengthViolations) {
                 fileReport.append(
@@ -82,7 +83,7 @@ public class PathReader {
             }
 
             if (report.methodDeclarationViolations.size() != 0) {
-                fileReport.append("\n\n\n####Method Declaration Violations below: " + report.methodDeclarationViolations.size());
+                fileReport.append("\n\n\n**Method Declaration Violations below:** " + report.methodDeclarationViolations.size());
 
                 for (MethodDeclarationViolation declarationViolation : report.methodDeclarationViolations) {
                     fileReport.append(
@@ -100,6 +101,14 @@ public class PathReader {
         // TODO: Add print to Markdown format function and refactor.
         printReport(fileReport.toString(), projectFolder);
         System.out.println(fileReport.toString());
+    }
+
+    private StringBuilder summarizeViolations() {
+        StringBuilder summarizeReport = new StringBuilder();
+        summarizeReport.append("\n####Summary: \n");
+                // Fill in the summarizing algorithm.
+        summarizeReport.append("\n\n\n####File information below\n---");
+        return summarizeReport;
     }
 
     private void printReport(String fileReport, String projectFolder) {
