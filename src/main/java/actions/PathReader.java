@@ -76,10 +76,12 @@ public class PathReader {
                 + "\nAmount of Comments: " + report.amountOfComments
                 + "\n\n####Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
 
-            for (LineLengthViolation lineLength : report.lineLengthViolations) {
-                fileReport.append(
-                    "\nLine Length Violation at line: " + lineLength.lineNumber
-                    + " - Actual Length: " + lineLength.actualLength);
+            if (report.lineLengthViolations.size() != 0) {
+                for (LineLengthViolation lineLength : report.lineLengthViolations) {
+                    fileReport.append(
+                            "\nLine Length Violation at line: " + lineLength.lineNumber
+                            + " - Actual Length: " + lineLength.actualLength);
+                }
             }
 
             if (report.methodDeclarationViolations.size() != 0) {
