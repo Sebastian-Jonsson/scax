@@ -84,8 +84,9 @@ public class PathReader {
                 }
             }
 
-            if (report.methodDeclarationViolations.size() != 0) {
-                fileReport.append("\n\n\n**Method Declaration Violations below:** " + report.methodDeclarationViolations.size());
+            if (report.methodDeclarationViolations != null) {
+                fileReport.append("\n\n\n**Method Declaration Violations below:** "
+                        + report.methodDeclarationViolations.size());
 
                 for (MethodDeclarationViolation declarationViolation : report.methodDeclarationViolations) {
                     fileReport.append(
@@ -102,7 +103,7 @@ public class PathReader {
         }
         // TODO: Add print to Markdown format function and refactor.
         printReport(fileReport.toString(), projectFolder);
-        System.out.println(fileReport.toString());
+        // System.out.println(fileReport.toString());
     }
 
     private StringBuilder summarizeViolations() {

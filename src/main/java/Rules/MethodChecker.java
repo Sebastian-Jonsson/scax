@@ -29,8 +29,6 @@ public class MethodChecker {
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
 
-    // Rule 6.4
-    // https://www.oracle.com/java/technologies/javase/codeconventions-declarations.html#381
     public void methodDeclarationCheck(FileReport report, String line, int lineNumber) {
 
         /* Assumes the class end brace is on its own line. */

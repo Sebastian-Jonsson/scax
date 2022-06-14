@@ -30,9 +30,9 @@
 
     <actions>
         <action id="scax" class="actions.StaticCodeAnalysisX" text="SCAX - Static Code Analysis X">
-            <add-to-group group-id="ToolsMenu" anchor="first"></add-to-group>
-            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"></add-to-group>
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
         </action>
     </actions>
 </idea-plugin>
