@@ -1,8 +1,5 @@
 package Rules;
 
-import actions.FileReport;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
