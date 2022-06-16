@@ -74,10 +74,14 @@ public class SimpleStatements {
                 }
 
             }
-            if (amountOfSemiColon > 1) {
+            if ((amountOfSemiColon > 1) ) {
                 SimpleStatementViolation ssViolation = new SimpleStatementViolation();
                 ssViolation.lineNumber = lineNumber;
-                report.simpleStatementViolations.add(ssViolation);
+
+                if (!report.simpleStatementViolations.contains(ssViolation.lineNumber)) {
+                    report.simpleStatementViolations.add(ssViolation);
+                }
+                break;
             }
             previousChar = Character.toString(lineArray[i]);
         }

@@ -13,7 +13,7 @@ import Rules.SimpleStatements.SimpleStatementViolation;
 
 public class PathReader {
     RulesConfig rule = new RulesConfig();
-    List<FileReport> reportList = new ArrayList<FileReport>();
+    List<FileReport> reportList = new ArrayList<>();
 
     public void sourcePathReader(String projectFolder) throws IOException {
         File sourceFolder = new File(projectFolder);
@@ -42,7 +42,7 @@ public class PathReader {
         BufferedReader buffReader = new BufferedReader(inStreamReader);
 
         FileReport report = new FileReport();
-        String line = "";
+        String line;
         int lineNumber = 0;
 
         report.filePath = inputFile.getAbsolutePath();
@@ -80,7 +80,7 @@ public class PathReader {
 
             if (report.lineLengthViolations.size() != 0) {
                 fileReport.append("\n\n\n**Line length Violations below:** "
-                        + report.simpleStatementViolations.size());
+                        + report.lineLengthViolations.size());
 
                 for (LineLengthViolation lineLength : report.lineLengthViolations) {
                     fileReport.append(
@@ -109,6 +109,7 @@ public class PathReader {
                         + report.simpleStatementViolations.size());
 
                 for (SimpleStatementViolation ssViolation : report.simpleStatementViolations) {
+                    if (report.simpleStatementViolations.contains(ssViolation))
                     fileReport.append(
                         "\n\nLine: " + ssViolation.lineNumber
                         + "\nDescription: " + ssViolation.statementViolation);

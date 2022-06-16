@@ -19,9 +19,9 @@ public class FileReport {
     public double medianClassSize = 0;
 
     // Rules Implementations
-    public List<LineLength.LineLengthViolation> lineLengthViolations;
+    public List<LineLength.LineLengthViolation> lineLengthViolations = new ArrayList<>();
     public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations;
-    public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations;
+    public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations = new ArrayList<>();
     public List<Integer> classSizeList;
 
 
