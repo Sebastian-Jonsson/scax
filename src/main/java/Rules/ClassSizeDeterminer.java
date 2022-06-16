@@ -1,14 +1,17 @@
 package Rules;
 
+import actions.FileReport;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ClassSizeDeterminer {
 
     RulesConfig rule = new RulesConfig();
-    public int classLength = 0;
-    public ArrayList<Integer> classList;
-    private double medianClassLength = 0;
+    public List<Integer> classList;
+    public double medianClassLength = 0;
+    private int classLength = 0;
     private boolean classStarted;
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
@@ -31,11 +34,12 @@ public class ClassSizeDeterminer {
                 classLength = 0;
             }
         }
-        Collections.sort(classList);
         medianDeterminer();
+
     }
 
     private void medianDeterminer() {
+        Collections.sort(classList);
         int arraySize = classList.size();
         int middleNumber = arraySize / 2;
 

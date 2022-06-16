@@ -157,7 +157,7 @@ public class MethodChecker {
 
         if (previousLine.length() > 0) {
             if (previousLine.contains("//") || previousLine.contains("*/")) {
-                // Java refuses the does not contain statements, adding else works.
+                // XXX
             }
             else {
                 MDV.methodName = methodName;

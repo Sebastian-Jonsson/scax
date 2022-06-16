@@ -9,6 +9,7 @@ import Rules.RulesConfig;
 import Rules.RulesOrganizer;
 import Rules.LineLength.LineLengthViolation;
 import Rules.MethodChecker.MethodDeclarationViolation;
+import Rules.SimpleStatements.SimpleStatementViolation;
 
 public class PathReader {
     RulesConfig rule = new RulesConfig();
@@ -76,11 +77,15 @@ public class PathReader {
                 + "\nAmount of Comments: " + report.amountOfComments
                 + "\n\n####Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
 
+
             if (report.lineLengthViolations.size() != 0) {
+                fileReport.append("\n\n\n**Line length Violations below:** "
+                        + report.simpleStatementViolations.size());
+
                 for (LineLengthViolation lineLength : report.lineLengthViolations) {
                     fileReport.append(
-                            "\nLine Length Violation at line: " + lineLength.lineNumber
-                            + " - Actual Length: " + lineLength.actualLength);
+                        "\n\nLine: " + lineLength.lineNumber
+                        + "\nActual Length: " + lineLength.actualLength);
                 }
             }
 
@@ -99,11 +104,20 @@ public class PathReader {
                 }
             }
 
+            if (report.simpleStatementViolations != null) {
+                fileReport.append("\n\n\n**SimpleStatement Violations below:** "
+                        + report.simpleStatementViolations.size());
+
+                for (SimpleStatementViolation ssViolation : report.simpleStatementViolations) {
+                    fileReport.append(
+                        "\n\nLine: " + ssViolation.lineNumber
+                        + "\nDescription: " + ssViolation.statementViolation);
+                }
+            }
+
             fileReport.append("\n\n---\n\n");
         }
-        // TODO: Add print to Markdown format function and refactor.
         printReport(fileReport.toString(), projectFolder);
-        // System.out.println(fileReport.toString());
     }
 
     private StringBuilder summarizeViolations() {

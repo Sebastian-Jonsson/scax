@@ -5,6 +5,7 @@ import java.util.List;
 
 import Rules.LineLength;
 import Rules.MethodChecker;
+import Rules.SimpleStatements;
 
 public class FileReport {
     // Metadata
@@ -15,9 +16,13 @@ public class FileReport {
     public int amountOfComments = 0;
     public int linesOfComments = 0;
     public int amountOfViolations = 0;
+    public double medianClassSize = 0;
 
     // Rules Implementations
-    public List<LineLength.LineLengthViolation> lineLengthViolations = new ArrayList<>();
+    public List<LineLength.LineLengthViolation> lineLengthViolations;
     public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations;
+    public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations;
+    public List<Integer> classSizeList;
+
 
 }
