@@ -6,6 +6,7 @@ import java.util.List;
 import Rules.LineLength;
 import Rules.MethodChecker;
 import Rules.SimpleStatements;
+import Rules.PackageAndImportStatements;
 
 public class FileReport {
     // Metadata
@@ -22,6 +23,7 @@ public class FileReport {
     public List<LineLength.LineLengthViolation> lineLengthViolations = new ArrayList<>();
     public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations;
     public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations = new ArrayList<>();
+    public List<PackageAndImportStatements.PackageAndImportViolation> packageImportViolations = new ArrayList<>();
     public List<Integer> classSizeList;
 
 
