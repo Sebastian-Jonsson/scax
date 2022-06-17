@@ -10,6 +10,7 @@ import Rules.RulesOrganizer;
 import Rules.LineLength.LineLengthViolation;
 import Rules.MethodChecker.MethodDeclarationViolation;
 import Rules.SimpleStatements.SimpleStatementViolation;
+import Rules.PackageAndImportStatements.PackageAndImportViolation;
 
 public class PathReader {
     RulesConfig rule = new RulesConfig();
@@ -113,6 +114,18 @@ public class PathReader {
                     fileReport.append(
                         "\n\nLine: " + ssViolation.lineNumber
                         + "\nDescription: " + ssViolation.statementViolation);
+                }
+            }
+
+            if (report.packageImportViolations != null) {
+                fileReport.append("\n\n\n **Package and Import Statements Violations below:** "
+                    + report.packageImportViolations.size());
+
+                for (PackageAndImportViolation piViolation : report.packageImportViolations) {
+                    fileReport.append(
+                            "\n\nLine: " + piViolation.lineNumber
+                            + "\nDescription: " + piViolation.packageImportViolation
+                    );
                 }
             }
 

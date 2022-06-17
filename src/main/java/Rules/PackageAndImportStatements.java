@@ -8,35 +8,39 @@ public class PackageAndImportStatements {
     private boolean orderCorrect = false;
     public void confirmOrder(FileReport report, String line, int lineNumber) {
         line = line.trim();
+        line.toLowerCase();
 
         if (!orderCorrect) {
             if (line.length() > 0) {
-                if (line.startsWith("//")) {
+                if (!line.startsWith("//")) {
+                    if (line.startsWith(("/*"))) {
+                        commentStarted = true;
 
-                }
-                else if (line.startsWith(("/*"))) {
-                    commentStarted = true;
-
-                    if (line.endsWith("*/")) {
+                        if (line.endsWith("*/")) {
+                            commentStarted = false;
+                        };
+                    }
+                    else if (line.endsWith("*/") && commentStarted) {
                         commentStarted = false;
-                    };
+                    }
+                    else if (line.startsWith("*/") && commentStarted) {
+                        commentStarted = false;
+                    }
+                    else if (!line.startsWith("package ") && !commentStarted) {
+                        PackageAndImportViolation piViolation = new PackageAndImportViolation();
+                        piViolation.lineNumber = lineNumber;
+                        report.packageImportViolations.add(piViolation);
+                        orderCorrect = true;
+                    }
                 }
-                else if (line.startsWith("/*")) {
-                    commentStarted = true;
+                if (line.startsWith("package")) {
+                    orderCorrect = true;
                 }
-                if (line.endsWith("*/") && commentStarted) {
-                    commentStarted = false;
+                else if (!line.startsWith("import") && orderCorrect) {
+                    PackageAndImportViolation piViolation = new PackageAndImportViolation();
+                    piViolation.lineNumber = lineNumber;
+                    report.packageImportViolations.add(piViolation);
                 }
-
-                if (line.startsWith("*/") && commentStarted) {
-                    commentStarted = false;
-                }
-            }
-            else if (!line.startsWith("package ")) { // TODO: Order of operation is wrong.
-                PackageAndImportViolation piViolation = new PackageAndImportViolation();
-                piViolation.lineNumber = lineNumber;
-                report.packageImportViolations.add(piViolation);
-                orderCorrect = true;
             }
         }
 
@@ -47,6 +51,6 @@ public class PackageAndImportStatements {
 
     public class PackageAndImportViolation {
         public int lineNumber = 0;
-        public String packageImportViolation = "";
+        public String packageImportViolation = "Package and Import Statements (first non-comment should be a Package, followed by import(s))";
     }
 }
