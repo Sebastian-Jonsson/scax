@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import Rules.PackageAndImportStatements;
 import Rules.RulesConfig;
 import Rules.RulesOrganizer;
 import Rules.LineLength.LineLengthViolation;
@@ -43,19 +44,43 @@ public class PathReader {
         BufferedReader buffReader = new BufferedReader(inStreamReader);
 
         FileReport report = new FileReport();
-        String line;
+        String newLine;
         int lineNumber = 0;
 
         report.filePath = inputFile.getAbsolutePath();
-        line = buffReader.readLine();
+        newLine = buffReader.readLine();
+
+        boolean importExist = false;
+        ArrayList<String> occurrences = new ArrayList<>();
+
+        while (newLine != null) {
+            newLine.toLowerCase();
+            if (newLine.startsWith("import ")) {
+                // TODO: go through arraylist and check order of the types of lines. Package, Import, Comment, Code. If package is after import = violation.
+                // TODO: metod som går igenom och skriver ner vad är vad för rad i ordning som en arraylist, så kan du loopa igenom sen i nästa while om ordningen är korrekt.
+                importExist = true;
+            }
+            occurrences.add(newLine);
+            newLine = buffReader.readLine();
+        }
+        buffReader.close();
+
+        PackageAndImportStatements PIS = new PackageAndImportStatements();
+        PIS.orderVerifier(occurrences);
+
+        FileInputStream fileInputStream2 = new FileInputStream(inputFile);
+        InputStreamReader inStreamReader2 = new InputStreamReader(fileInputStream2);
+        BufferedReader buffReader2 = new BufferedReader(inStreamReader2);
+        String line = buffReader2.readLine();
+
 
         while (line != null) {
             lineNumber++;
             Rules.rulesChecker(report, line, lineNumber);
             report.totalLines++;
-            line = buffReader.readLine();
+            line = buffReader2.readLine();
         }
-        buffReader.close();
+        buffReader2.close();
         reportList.add(report);
     }
 

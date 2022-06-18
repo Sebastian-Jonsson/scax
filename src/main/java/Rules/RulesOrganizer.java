@@ -9,7 +9,6 @@ public class RulesOrganizer {
     //private final ClassSizeDeterminer CSD = new ClassSizeDeterminer();
     private final SimpleStatements SS = new SimpleStatements();
 
-    private final PackageAndImportStatements PIS = new PackageAndImportStatements();
 
     public void rulesChecker(FileReport report, String line, int lineNumber) {
         ToL.lineTypeCount(report, line);
@@ -18,7 +17,6 @@ public class RulesOrganizer {
         LL.maxLineLength(report, line, lineNumber);
         MC.methodDeclarationCheck(report, line, lineNumber);
         SS.checkSimpleStatement(report, line, lineNumber);
-        PIS.confirmOrder(report, line, lineNumber);
 
     }
 
