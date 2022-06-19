@@ -12,19 +12,18 @@ public class PackageAndImportStatements {
     private boolean importFound = false;
     private boolean violationDetected = false;
 
-    public void orderVerifier(ArrayList<String> occurrences) {
+    public void orderVerifier(ArrayList<String> occurrences, FileReport report) {
         ArrayList<String> orderOfOperation = new ArrayList<>();
         String cmtString = "COMMENT";
         String pkgString = "PACKAGE";
         String impString = "IMPORT;";
         String codeString = "CODE";
-        String blankString = "BLANK";
 
         for (String line : occurrences) {
-            if (line.length() > 0) {
-                orderOfOperation.add((blankString));
-            }
-            else {
+            line = line.trim();
+            line.toLowerCase();
+
+            if (line.length() != 0) {
                 if (commentStarted) {
                     orderOfOperation.add(cmtString);
                 }
@@ -36,7 +35,6 @@ public class PackageAndImportStatements {
                     commentStarted = true;
 
                     if (line.endsWith("*/")) {
-                        orderOfOperation.add(cmtString);
                         commentStarted = false;
                     };
                 }
@@ -46,8 +44,24 @@ public class PackageAndImportStatements {
                 else if (line.startsWith("*/") && commentStarted) {
                     commentStarted = false;
                 }
+                else if (line.startsWith("package ")) {
+                    orderOfOperation.add(pkgString);
+                }
+                else if (line.startsWith("import ")) {
+                    orderOfOperation.add(impString);
+                }
+                else {
+                    orderOfOperation.add(codeString);
+                }
             }
         }
+
+        verifier(orderOfOperation, report);
+    }
+
+    private void verifier(ArrayList<String> orderOfOperation, FileReport report) {
+        // TODO: go through arraylist and check order of the types of lines. Package, Import, Comment, Code. If package is after import = violation.
+        // TODO: Bubble sort principle to find the correct order.
     }
 
     public void confirmOrder(FileReport report, String line, int lineNumber) {

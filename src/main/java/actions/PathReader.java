@@ -55,18 +55,13 @@ public class PathReader {
 
         while (newLine != null) {
             newLine.toLowerCase();
-            if (newLine.startsWith("import ")) {
-                // TODO: go through arraylist and check order of the types of lines. Package, Import, Comment, Code. If package is after import = violation.
-                // TODO: metod som går igenom och skriver ner vad är vad för rad i ordning som en arraylist, så kan du loopa igenom sen i nästa while om ordningen är korrekt.
-                importExist = true;
-            }
             occurrences.add(newLine);
             newLine = buffReader.readLine();
         }
         buffReader.close();
 
         PackageAndImportStatements PIS = new PackageAndImportStatements();
-        PIS.orderVerifier(occurrences);
+        PIS.orderVerifier(occurrences, report);
 
         FileInputStream fileInputStream2 = new FileInputStream(inputFile);
         InputStreamReader inStreamReader2 = new InputStreamReader(fileInputStream2);
