@@ -182,7 +182,7 @@ public class PathReader {
 
         summarizeReport.append("\n####Project Summary: "
                 + "\nAmount of Classes: " + allClassesLengths.size()
-                + "\nMedian of Classes: " + medianClassSize
+                + "\nMedian of All Classes: " + medianClassSize
                 + "\nTotal Length of All Classes: " + totalClassLength
                 + "\nAll Classes Listed: " + allClassesLengths
                 + "\n\nAmount of Package and Import Statement Violations: " + amountOfPkgImpViolations
