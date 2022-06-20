@@ -1,19 +1,20 @@
 package Rules;
 
+import actions.FileReport;
+
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class ClassSizeDeterminer {
 
     RulesConfig rule = new RulesConfig();
-    public List<Integer> classList;
     public double medianClassLength = 0;
     private int classLength = 0;
     private boolean classStarted;
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
 
-    public void addClassLength(String line) {
+    public int addClassLength(FileReport report, String line) {
         if (line.matches(rule.classRegex) || classStarted) {
             classStarted = true;
             classLength++;
@@ -27,15 +28,16 @@ public class ClassSizeDeterminer {
             if (parentOpenBrace == parentEndBrace) {
                 classStarted = false;
                 classLength++;
-                classList.add(classLength);
+                int returnLength = classLength;
                 classLength = 0;
+                return returnLength;
             }
         }
-        medianDeterminer();
 
+        return 0;
     }
 
-    private void medianDeterminer() {
+    public void medianDeterminer(ArrayList<Integer> classList) {
         Collections.sort(classList);
         int arraySize = classList.size();
         int middleNumber = arraySize / 2;
@@ -47,4 +49,5 @@ public class ClassSizeDeterminer {
             medianClassLength = (double)classList.get(middleNumber);
         }
     }
+
 }

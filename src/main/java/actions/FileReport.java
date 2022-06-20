@@ -16,8 +16,6 @@ public class FileReport {
     public int blankLines = 0;
     public int amountOfComments = 0;
     public int linesOfComments = 0;
-    public int amountOfViolations = 0;
-    public double medianClassSize = 0;
 
     // Rules Implementations
     public List<LineLength.LineLengthViolation> lineLengthViolations = new ArrayList<>();

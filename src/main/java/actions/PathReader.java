@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import Rules.ClassSizeDeterminer;
 import Rules.PackageAndImportStatements;
 import Rules.RulesConfig;
 import Rules.RulesOrganizer;
@@ -16,6 +17,8 @@ import Rules.PackageAndImportStatements.PackageAndImportViolation;
 public class PathReader {
     RulesConfig rule = new RulesConfig();
     List<FileReport> reportList = new ArrayList<>();
+    ArrayList<Integer> classSizeList = new ArrayList<>();
+    private double medianClassSize;
 
     public void sourcePathReader(String projectFolder) throws IOException {
         File sourceFolder = new File(projectFolder);
@@ -67,20 +70,25 @@ public class PathReader {
         BufferedReader buffReader2 = new BufferedReader(inStreamReader2);
         String line = buffReader2.readLine();
 
+        ClassSizeDeterminer CSD = new ClassSizeDeterminer();
+        CSD.addClassLength(report, line);
+        int classLength = 0;
 
         while (line != null) {
+            classLength = CSD.addClassLength(report, line);
             lineNumber++;
             Rules.rulesChecker(report, line, lineNumber);
             report.totalLines++;
             line = buffReader2.readLine();
         }
+        classSizeList.add(classLength);
+        CSD.medianDeterminer(classSizeList);
+        medianClassSize = CSD.medianClassLength;
+
         buffReader2.close();
         reportList.add(report);
     }
 
-    /**
-     * TODO: Move and refactor.
-     */
     private void tempFileReport(String projectFolder) {
         StringBuilder fileReport = new StringBuilder();
         fileReport.append("###Report of " + projectFolder);
@@ -154,13 +162,35 @@ public class PathReader {
 
     private StringBuilder summarizeViolations() {
         StringBuilder summarizeReport = new StringBuilder();
-        summarizeReport.append("\n####Summary: \n");
+        List<Integer> allClassesLengths = new ArrayList<>();
+        int totalClassLength = 0;
+        int amountOfPkgImpViolations = 0;
+        int amountOfMethodDeclarationViolations = 0;
+        int amountOfSimpleStatementViolations = 0;
+        int amountOfLineLengthViolations = 0;
 
-        for (FileReport report : reportList) {
-
+        for (int classSize : classSizeList) {
+            totalClassLength += classSize;
+            allClassesLengths.add(classSize);
         }
-                // Fill in the summarizing algorithm.
-        summarizeReport.append("\n\n\n####File information below\n---");
+        for (FileReport report : reportList) {
+            amountOfPkgImpViolations += report.packageImportViolations.size();
+            amountOfLineLengthViolations += report.lineLengthViolations.size();
+            amountOfMethodDeclarationViolations += report.methodDeclarationViolations.size();
+            amountOfSimpleStatementViolations += report.simpleStatementViolations.size();
+        }
+
+        summarizeReport.append("\n####Project Summary: "
+                + "\nAmount of Classes: " + allClassesLengths.size()
+                + "\nMedian of Classes: " + medianClassSize
+                + "\nTotal Length of All Classes: " + totalClassLength
+                + "\nAll Classes Listed: " + allClassesLengths
+                + "\n\nAmount of Package and Import Statement Violations: " + amountOfPkgImpViolations
+                + "\nAmount of Method Declaration Violations: " + amountOfMethodDeclarationViolations
+                + "\nAmount of Simple Statement Violations: " + amountOfSimpleStatementViolations
+                + "\nAmount of Line Length Violations: " + amountOfLineLengthViolations
+                + "\n\n\n####File information below\n---"
+        );
         return summarizeReport;
     }
 
