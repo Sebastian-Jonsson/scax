@@ -37,6 +37,6 @@ tasks {
   }
 
   publishPlugin {
-    token.set(System.getenv("PUBLISH_TOKEN"))
+    token.set(System.getenv("SCAX_PUBLISH_TOKEN"))
   }
 }
