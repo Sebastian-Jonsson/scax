@@ -50,7 +50,6 @@ public class PathReader {
         report.filePath = inputFile.getAbsolutePath();
         newLine = buffReader.readLine();
 
-        boolean importExist = false;
         ArrayList<String> occurrences = new ArrayList<>();
 
         while (newLine != null) {
@@ -143,8 +142,7 @@ public class PathReader {
 
                 for (PackageAndImportViolation piViolation : report.packageImportViolations) {
                     fileReport.append(
-                            "\n\nLine: " + piViolation.lineNumber
-                            + "\nDescription: " + piViolation.packageImportViolation
+                            "\n\nDescription: " + piViolation.packageImportViolation
                     );
                 }
             }
@@ -157,6 +155,10 @@ public class PathReader {
     private StringBuilder summarizeViolations() {
         StringBuilder summarizeReport = new StringBuilder();
         summarizeReport.append("\n####Summary: \n");
+
+        for (FileReport report : reportList) {
+
+        }
                 // Fill in the summarizing algorithm.
         summarizeReport.append("\n\n\n####File information below\n---");
         return summarizeReport;
