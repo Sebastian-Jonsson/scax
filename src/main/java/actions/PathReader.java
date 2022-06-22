@@ -103,7 +103,7 @@ public class PathReader {
                 + "\nBlank Lines: " + report.blankLines
                 + "\nLines of Comments: " + report.linesOfComments
                 + "\nAmount of Comments: " + report.amountOfComments
-                + "\n\n####Violations: \nTotal Line Length Violations: " + report.lineLengthViolations.size());
+                + "\n\n####Violations: ");
 
 
             if (report.lineLengthViolations.size() != 0) {
@@ -197,14 +197,10 @@ public class PathReader {
     private void printReport(String fileReport, String projectFolder) {
         File myObj = new File(projectFolder + "/SCAX_Report.md");
         try {
-            if (myObj.createNewFile()) {
-                FileWriter writeToFile = new FileWriter(projectFolder + "/SCAX_Report.md");
-                writeToFile.write(fileReport);
-                writeToFile.close();
-            }
-            else {
-                System.out.println("File already exists.");
-            }
+            FileWriter writeToFile = new FileWriter(projectFolder + "/SCAX_Report.md");
+            writeToFile.write(fileReport);
+            writeToFile.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
