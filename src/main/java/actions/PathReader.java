@@ -125,9 +125,9 @@ public class PathReader {
                     fileReport.append(
                         "\n\nParent Name: " + declarationViolation.parentName
                         + "\nParent Class or Interface Length: " + declarationViolation.parentLength
-                        + "\nLine: " + declarationViolation.lineNumber + " | Method: "
-                        + declarationViolation.methodName
-                        + " | Method Length: " + declarationViolation.methodLength
+                        + "\nLine: " + declarationViolation.lineNumber
+                        + "\nMethod: " + declarationViolation.methodName
+                        + "\nMethod Length: " + declarationViolation.methodLength
                         + "\nDescription: " + declarationViolation.declarationViolation);
                 }
             }
