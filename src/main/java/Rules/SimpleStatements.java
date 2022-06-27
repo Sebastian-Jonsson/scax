@@ -43,30 +43,24 @@ public class SimpleStatements {
                     stringStarted = false;
                 }
             }
-
-
-
             if (Character.toString(lineArray[i]).equals("/") && !stringStarted) { // '//' comment type.
 
-                if (previousChar == "/") {
+                if (previousChar == "/") {  
                     break;
                 }
             }
-
             if (Character.toString(lineArray[i]).equals("*") && !stringStarted) { // '/*' comment type.
 
                 if (previousChar == "/") {
                     commentStarted = true;
                 }
             }
-
             if (Character.toString(lineArray[i]).equals("/") && commentStarted) {
 
                 if (previousChar == "*") {
                     commentStarted = false;
                 }
             }
-
             if (Character.toString(lineArray[i]).equals(";")) {
 
                 if (!commentStarted && !stringStarted) {

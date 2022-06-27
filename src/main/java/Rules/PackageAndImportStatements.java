@@ -55,7 +55,6 @@ public class PackageAndImportStatements {
 
         if (!orderOfOperation.get(0).equals(pkgString)) {
             report.packageImportViolations.add(new PackageAndImportViolation());
-            System.out.println("nej1");
             violationDetected = true;
         }
 
@@ -64,7 +63,6 @@ public class PackageAndImportStatements {
 
                 if (previousString.equals(codeString)) {
                     if (lineType.equals(impString)) {
-                        System.out.println("nej1");
                         report.packageImportViolations.add(new PackageAndImportViolation());
                     }
                 }
