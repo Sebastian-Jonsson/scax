@@ -40,22 +40,27 @@ public class TypeOfLine {
     }
 
     private boolean blankLineChecker(String line) {
+
         return line.length() == 0;
     }
 
     private boolean singleLineComment(String line) {
+
         return line.startsWith("//");
     }
 
     private boolean multiLineStart(String line) {
+
         return line.startsWith("/*");
     }
 
     private boolean multiLineEnd(String line) {
+
         return line.endsWith("*/") && commentStarted;
     }
 
     private boolean oneLineJavaComment(String line) {
+
         return line.startsWith("/*") && line.endsWith("*/");
     }
 }

@@ -82,6 +82,7 @@ public class SimpleStatements {
     }
 
     private boolean isForLoop(String line) {
+
         return line.matches(rule.basicForLoopRegex);
     }
 

@@ -14,7 +14,7 @@ public class ClassSizeDeterminer {
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
 
-    public int addClassLength(FileReport report, String line) {
+    public int addClassLength(String line) {
         if (line.matches(rule.classRegex) || classStarted) {
             classStarted = true;
             classLength++;

@@ -71,11 +71,11 @@ public class PathReader {
         String line = buffReader2.readLine();
 
         ClassSizeDeterminer CSD = new ClassSizeDeterminer();
-        CSD.addClassLength(report, line);
+        CSD.addClassLength(line);
         int classLength = 0;
 
         while (line != null) {
-            classLength = CSD.addClassLength(report, line);
+            classLength = CSD.addClassLength(line);
             lineNumber++;
             Rules.rulesChecker(report, line, lineNumber);
             report.totalLines++;
