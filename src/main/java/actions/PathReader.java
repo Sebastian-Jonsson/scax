@@ -176,6 +176,7 @@ public class PathReader {
         for (FileReport report : reportList) {
             amountOfPkgImpViolations += report.packageImportViolations.size();
             amountOfLineLengthViolations += report.lineLengthViolations.size();
+            System.out.println(report.methodDeclarationViolations.size());
             amountOfMethodDeclarationViolations += report.methodDeclarationViolations.size();
             amountOfSimpleStatementViolations += report.simpleStatementViolations.size();
         }

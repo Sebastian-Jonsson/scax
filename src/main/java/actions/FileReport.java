@@ -19,7 +19,7 @@ public class FileReport {
 
     // Rules Implementations
     public List<LineLength.LineLengthViolation> lineLengthViolations = new ArrayList<>();
-    public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations;
+    public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations = new ArrayList<>();
     public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations = new ArrayList<>();
     public List<PackageAndImportStatements.PackageAndImportViolation> packageImportViolations = new ArrayList<>();
     public List<Integer> classSizeList; // TODO: Verify removal is alright.
