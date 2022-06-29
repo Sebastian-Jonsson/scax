@@ -20,7 +20,6 @@ public class MethodChecker {
     private int methodOpenBrace;
     private int methodEndBrace = 0;
     private int methodLength = 0;
-    private int methodCount = 0;
 
     private boolean classStarted;
     private boolean classEnded;
@@ -88,7 +87,6 @@ public class MethodChecker {
             MethodDeclarationViolation MDV = new MethodDeclarationViolation();
             methodName = trimmedLine;
             methodLength = 1;
-            methodCount++;
             MDV.methodName = methodName;
             MDV.lineNumber = lineNumber;
             MDV.declarationViolation = invalidNullBraceViolation;
@@ -125,7 +123,6 @@ public class MethodChecker {
             if (methodEnd()) {
                 appendMethodData(methodName, lineNumber, methodLength);
                 methodStarted = false;
-                methodCount++;
             }
         }
     }
@@ -142,7 +139,6 @@ public class MethodChecker {
     private void appendClassData() {
 
         for (MethodDeclarationViolation declarationViolation : methodDeclarationViolations) {
-            declarationViolation.parentTotalMethods = methodCount;
             declarationViolation.parentLength = parentLength;
             declarationViolation.parentName = parentName;
         }
@@ -157,7 +153,7 @@ public class MethodChecker {
 
         if (previousLine.length() > 0) {
             if (previousLine.contains("//") || previousLine.contains("*/")) {
-                // XXX
+                // XXX - Dirty but works.
             }
             else {
                 MDV.methodName = methodName;
@@ -172,7 +168,6 @@ public class MethodChecker {
     public class MethodDeclarationViolation {
         public String parentName = "";
         public int parentLength = 0;
-        public int parentTotalMethods = 0;
         public String methodName = "";
         public int methodLength = 0;
         public int lineNumber = 0;
