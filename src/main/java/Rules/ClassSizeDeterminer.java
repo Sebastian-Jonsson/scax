@@ -32,6 +32,7 @@ public class ClassSizeDeterminer {
                 classLength = 0;
                 return returnLength;
             }
+
         }
 
         return 0;

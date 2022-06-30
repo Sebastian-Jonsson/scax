@@ -189,7 +189,7 @@ public class PathReader {
                 + "\nMedian of All Classes: " + medianClassSize
                 + "\nTotal Length of All Classes: " + totalClassLength
                 + "\nAll Classes Listed: " + allClassesLengths
-                + "\n You'll know: " + classNameAndSize
+                + "\nFilenames and Sizes " + classNameAndSize
                 + "\n\nAmount of Package and Import Statement Violations: " + amountOfPkgImpViolations
                 + "\nAmount of Method Declaration Violations: " + amountOfMethodDeclarationViolations
                 + "\nAmount of Simple Statement Violations: " + amountOfSimpleStatementViolations
