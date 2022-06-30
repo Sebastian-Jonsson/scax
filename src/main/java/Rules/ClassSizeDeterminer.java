@@ -10,12 +10,12 @@ public class ClassSizeDeterminer {
     RulesConfig rule = new RulesConfig();
     public double medianClassLength = 0;
     private int classLength = 0;
-    private boolean classStarted;
+    private boolean classStarted = false;
     private int parentOpenBrace = 0;
     private int parentEndBrace = 0;
 
     public int addClassLength(String line) {
-        if (line.matches(rule.classRegex) || classStarted) {
+        if (line.matches(rule.classRegex) || classStarted) { // TODO: Fix nullpointerexception
             classStarted = true;
             classLength++;
 

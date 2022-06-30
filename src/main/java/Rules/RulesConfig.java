@@ -13,8 +13,8 @@ public class RulesConfig {
     public final String invalidLineMethodRegex = "(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\)";
     public final String invalidSpaceParenthesisMethodRegex = "(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) \\([^\\)]*\\) *(\\{?|[^;]) *(\\{)*(\\})*";
     public final String invalidNullBraceMethodRegex = "(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;]) (\\{) +(\\})";
-    public final String classOrInterfaceRegex = "(public|protected|private|static|\\s)? ?(abstract|final\\s)? +(class|interface|\\s) +[\\w\\<\\>\\[\\]]+\\ *((\\{?|[^;])) *((extends|\\s) +[\\w\\<\\>\\[\\]]+)* *((implements|\\s) +[\\w\\<\\>\\[\\]]+)* *(\\{)+";
-    public final String classRegex = "(public|protected|private|static|\\s)? ?(abstract|final\\s)? +(class|\\s) +[\\w\\<\\>\\[\\]]+\\ *((\\{?|[^;])) *((extends|\\s) +[\\w\\<\\>\\[\\]]+)* *((implements|\\s) +[\\w\\<\\>\\[\\]]+)* *(\\{)+";
+    public final String classOrInterfaceRegex = "(public|protected|private|static|\\s)? *(abstract|final\\s)? +(class|interface|\\s) +[\\w\\<\\>\\[\\]]+\\ *((\\{?|[^;])) *((extends|\\s) +[\\w\\<\\>\\[\\]]+)* *((implements|\\s) +[\\w\\<\\>\\[\\]]+)* *(\\{)+";
+    public final String classRegex = "(public|protected|private|static|\\s)? *(abstract|final\\s)? +(class|\\s) +[\\w\\<\\>\\[\\]]+\\ *((\\{?|[^;])) *((extends|\\s) +[\\w\\<\\>\\[\\]]+)* *((implements|\\s) +[\\w\\<\\>\\[\\]]+)* *(\\{)+";
 
     // Simple Statement Rules.
     public final String basicForLoopRegex = ".*(for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)]?).*";

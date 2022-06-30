@@ -53,20 +53,22 @@ public class PackageAndImportStatements {
 
     private void verifier(ArrayList<String> orderOfOperation, FileReport report) {
 
-        if (!orderOfOperation.get(0).equals(pkgString)) {
-            report.packageImportViolations.add(new PackageAndImportViolation());
-            violationDetected = true;
-        }
+        if (!orderOfOperation.isEmpty()) {
+            if (!orderOfOperation.get(0).equals(pkgString)) {
+                report.packageImportViolations.add(new PackageAndImportViolation());
+                violationDetected = true;
+            }
 
-        if (!violationDetected) {
-            for (String lineType : orderOfOperation) {
+            if (!violationDetected) {
+                for (String lineType : orderOfOperation) {
 
-                if (previousString.equals(codeString)) {
-                    if (lineType.equals(impString)) {
-                        report.packageImportViolations.add(new PackageAndImportViolation());
+                    if (previousString.equals(codeString)) {
+                        if (lineType.equals(impString)) {
+                            report.packageImportViolations.add(new PackageAndImportViolation());
+                        }
                     }
+                    previousString = lineType;
                 }
-                previousString = lineType;
             }
         }
     }
