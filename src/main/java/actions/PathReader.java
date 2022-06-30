@@ -2,6 +2,8 @@ package actions;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -18,6 +20,7 @@ public class PathReader {
     RulesConfig rule = new RulesConfig();
     List<FileReport> reportList = new ArrayList<>();
     ArrayList<Integer> classSizeList = new ArrayList<>();
+    HashMap<String, Integer> classNameAndSize = new HashMap<>();
     private double medianClassSize;
 
     public void sourcePathReader(String projectFolder) throws IOException {
@@ -81,6 +84,7 @@ public class PathReader {
             report.totalLines++;
             line = buffReader2.readLine();
         }
+        classNameAndSize.put(inputFile.getAbsolutePath(), classLength);
         classSizeList.add(classLength);
         CSD.medianDeterminer(classSizeList);
         medianClassSize = CSD.medianClassLength;
@@ -176,7 +180,6 @@ public class PathReader {
         for (FileReport report : reportList) {
             amountOfPkgImpViolations += report.packageImportViolations.size();
             amountOfLineLengthViolations += report.lineLengthViolations.size();
-            System.out.println(report.methodDeclarationViolations.size());
             amountOfMethodDeclarationViolations += report.methodDeclarationViolations.size();
             amountOfSimpleStatementViolations += report.simpleStatementViolations.size();
         }
@@ -186,6 +189,7 @@ public class PathReader {
                 + "\nMedian of All Classes: " + medianClassSize
                 + "\nTotal Length of All Classes: " + totalClassLength
                 + "\nAll Classes Listed: " + allClassesLengths
+                + "\n You'll know: " + classNameAndSize
                 + "\n\nAmount of Package and Import Statement Violations: " + amountOfPkgImpViolations
                 + "\nAmount of Method Declaration Violations: " + amountOfMethodDeclarationViolations
                 + "\nAmount of Simple Statement Violations: " + amountOfSimpleStatementViolations
