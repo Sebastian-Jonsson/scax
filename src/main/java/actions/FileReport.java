@@ -22,7 +22,6 @@ public class FileReport {
     public List<MethodChecker.MethodDeclarationViolation> methodDeclarationViolations = new ArrayList<>();
     public List<SimpleStatements.SimpleStatementViolation> simpleStatementViolations = new ArrayList<>();
     public List<PackageAndImportStatements.PackageAndImportViolation> packageImportViolations = new ArrayList<>();
-    public List<Integer> classSizeList; // TODO: Verify removal is alright.
 
 
 }

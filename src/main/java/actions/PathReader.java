@@ -121,6 +121,7 @@ public class PathReader {
                 }
             }
 
+            /*
             if (report.methodDeclarationViolations != null) {
                 fileReport.append("\n\n\n**Method Declaration Violations below:** "
                         + report.methodDeclarationViolations.size());
@@ -135,6 +136,7 @@ public class PathReader {
                         + "\nDescription: " + declarationViolation.declarationViolation);
                 }
             }
+            */
 
             if (report.simpleStatementViolations != null) {
                 fileReport.append("\n\n\n**SimpleStatement Violations below:** "
@@ -169,7 +171,7 @@ public class PathReader {
         List<Integer> allClassesLengths = new ArrayList<>();
         int totalClassLength = 0;
         int amountOfPkgImpViolations = 0;
-        int amountOfMethodDeclarationViolations = 0;
+        // int amountOfMethodDeclarationViolations = 0;
         int amountOfSimpleStatementViolations = 0;
         int amountOfLineLengthViolations = 0;
 
@@ -180,7 +182,7 @@ public class PathReader {
         for (FileReport report : reportList) {
             amountOfPkgImpViolations += report.packageImportViolations.size();
             amountOfLineLengthViolations += report.lineLengthViolations.size();
-            amountOfMethodDeclarationViolations += report.methodDeclarationViolations.size();
+            // amountOfMethodDeclarationViolations += report.methodDeclarationViolations.size();
             amountOfSimpleStatementViolations += report.simpleStatementViolations.size();
         }
 
@@ -191,7 +193,7 @@ public class PathReader {
                 + "\nAll Classes Listed: " + allClassesLengths
                 + "\nFilenames and Sizes " + classNameAndSize
                 + "\n\nAmount of Package and Import Statement Violations: " + amountOfPkgImpViolations
-                + "\nAmount of Method Declaration Violations: " + amountOfMethodDeclarationViolations
+                // + "\nAmount of Method Declaration Violations: " + amountOfMethodDeclarationViolations
                 + "\nAmount of Simple Statement Violations: " + amountOfSimpleStatementViolations
                 + "\nAmount of Line Length Violations: " + amountOfLineLengthViolations
                 + "\n\n\n####File information below\n---"

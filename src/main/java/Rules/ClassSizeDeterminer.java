@@ -15,7 +15,7 @@ public class ClassSizeDeterminer {
     private int parentEndBrace = 0;
 
     public int addClassLength(String line) {
-        if (line.matches(rule.classRegex) || classStarted) { // TODO: Fix nullpointerexception
+        if (line.matches(rule.classRegex) || classStarted) { // TODO: Fix nullpointerexception caused in Flink-master
             classStarted = true;
             classLength++;
 
